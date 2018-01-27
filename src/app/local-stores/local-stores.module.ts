@@ -1,13 +1,16 @@
 import { NgModule, } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http'
 import { LocalStoresComponent } from './local-stores.component';
 import { LocalStoresService } from './local-stores.service';
 import { AgmCoreModule } from "@agm/core"
+import { environment } from '../../environments/environment';
 @NgModule({
   imports: [
     CommonModule,
+    HttpClientModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCq_VH60lCjrr7MORAEfBRUzj1AF2friIw'
+      apiKey: environment.googlMapsApiKey
     })
   ],
   declarations: [LocalStoresComponent],
