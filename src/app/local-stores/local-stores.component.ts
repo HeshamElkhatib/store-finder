@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-local-stores',
+  selector: 'local-stores',
   templateUrl: './local-stores.component.html',
   styleUrls: ['./local-stores.component.css']
 })
