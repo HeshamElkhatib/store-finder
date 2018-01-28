@@ -10,12 +10,12 @@
             </button>
         </form>
 
-        <div>
+        <div *ngIf="localStores.length > 0">
             <div id="stores-list">
-                <local-stores-list *ngIf="!isStoresListCollapsed" [localStores]="localStores">
+                <local-stores-list *ngIf="!isStoresListCollapsed" [localStores]="localStores" (storeClick)="onStoreClick($event)">
                 </local-stores-list>
             </div>
-            <span class="card bg-primary text-white text-center" (click)="isStoresListCollapsed = !isStoresListCollapsed">
+            <span class="card bg-primary text-white text-center" (click)="toggleStoresList()">
                 <span *ngIf="isStoresListCollapsed">
                     <i class="fa fa-arrow-down" aria-hidden="true"></i> Display List</span>
                 <span *ngIf="!isStoresListCollapsed">
@@ -24,16 +24,12 @@
             </span>
         </div>
     </div>
-    
+
     <div id="map">
-        <!--
         <agm-map [latitude]="centerLat" [longitude]="centerLng">
-            <agm-marker *ngFor="let localStore of localStores" [latitude]="localStore.geoInfo.lat" [longitude]="localStore.geoInfo.lng">
+            <agm-marker *ngFor="let localStore of localStores; index as i;" [opacity]="(selectedStoreIndx == -1 || i == selectedStoreIndx) ? 1 : 0.4"
+                [latitude]="localStore.geoInfo.lat" [longitude]="localStore.geoInfo.lng">
             </agm-marker>
         </agm-map>
-    -->
     </div>
-
-
-
 </div>

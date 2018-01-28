@@ -24,12 +24,24 @@ export class LocalStoreFinderComponent implements OnInit {
   centerLat: number = 51.678418;
   centerLng: number = 7.809007;
   isStoresListCollapsed = true;
+  // the selected store from the list view
+  selectedStoreIndx = -1;
 
   constructor(private localStoresService: LocalStoresService) { }
 
   ngOnInit() {
   }
   
+  storesComparer(a: LocalStore, b: LocalStore){
+    if(a.starRating == b.starRating)
+      return (a.name < b.name) ? -1 : 1;
+    if(a.starRating == null) 
+      return 1;
+    if(b.starRating == null)
+      return -1;
+    return (a.starRating > b.starRating) ? -1 : 1;
+  }
+
   onSearch(): void{
     this.localStoresService.getByEanAndCity(this.country, this.language, this.productEan, this.searchText, 0, 1000).
     pipe(
@@ -38,12 +50,22 @@ export class LocalStoreFinderComponent implements OnInit {
       map(group => group.records),
     ).
     subscribe((localStores: Array<LocalStore>) => {
-      this.localStores = localStores;
+      this.localStores = localStores.sort(this.storesComparer);
       this.centerLng = localStores[0].geoInfo.lng;
       this.centerLat = localStores[0].geoInfo.lat;
-      console.log(this.localStores);
+      
     }); 
   }
+
+  onStoreClick(index: number){
+    this.centerLat = this.localStores[index].geoInfo.lat;
+    this.centerLng = this.localStores[index].geoInfo.lng;
+    this.selectedStoreIndx = index;
+  }
   
+  toggleStoresList() {
+    this.selectedStoreIndx = -1;
+    this.isStoresListCollapsed = !this.isStoresListCollapsed
+  }
 
 }
