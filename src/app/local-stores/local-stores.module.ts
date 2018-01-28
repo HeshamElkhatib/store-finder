@@ -1,7 +1,7 @@
 import { NgModule, } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http'
-import { LocalStoresComponent } from './local-stores.component';
+import { LocalStoreFinderComponent } from './local-store-finder.component';
 import { LocalStoresService } from './local-stores.service';
 import { AgmCoreModule } from "@agm/core"
 import { environment } from '../../environments/environment';
@@ -13,8 +13,8 @@ import { environment } from '../../environments/environment';
       apiKey: environment.googlMapsApiKey
     })
   ],
-  declarations: [LocalStoresComponent],
-  exports: [LocalStoresComponent],
+  declarations: [LocalStoreFinderComponent],
+  exports: [LocalStoreFinderComponent],
   providers: [LocalStoresService]
 })
 export class LocalStoresModule { }

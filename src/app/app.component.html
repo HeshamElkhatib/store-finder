@@ -8,8 +8,8 @@
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane container" [class.active]="isLocalActive" id="local-dealer">
-      LocalDealer
+    <div class="tab-pane" [class.active]="isLocalActive" id="local-dealer">
+      <local-store-finder></local-store-finder>
     </div>
     <div class="tab-pane container" [class.active]="!isLocalActive" id="online-retailer">
       Online Retailer
