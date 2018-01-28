@@ -9,7 +9,10 @@
 
 <div class="tab-content">
     <div class="tab-pane" [class.active]="isLocalActive" id="local-dealer">
-      <local-store-finder></local-store-finder>
+      <local-store-finder 
+      [productEan]="productEan"
+      [country]="country"
+      [language]="language"></local-store-finder>
     </div>
     <div class="tab-pane container" [class.active]="!isLocalActive" id="online-retailer">
       Online Retailer
