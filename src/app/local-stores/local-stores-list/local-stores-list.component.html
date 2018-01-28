@@ -1,4 +1,4 @@
-<div *ngFor="let store of localStores">
+<div *ngFor="let store of localStores; index as i;" (click)="onStoreClick(i)">
     <local-store-detail [localStore]="store"></local-store-detail>
 </div>
 
