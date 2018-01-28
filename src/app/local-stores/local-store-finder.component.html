@@ -1,13 +1,21 @@
-<div>
-  <form class="form-inline">
-    <div class="form-group">
-        <input type="text" class="form-control">
-    </div>
-    <button type="submit"></button>
+<div class="row margin-md" id="search-layer">
+  <form class="form-inline" #searchForm="ngForm">
+    <span class="form-group">
+        <input type="text" class="form-control" name="search" [(ngModel)]="searchText">
+    </span>
+    <button type="submit" class="btn btn-primary" (click)="onSearch()"><i class="fa fa-search" aria-hidden="true"></i></button>
   </form>
+  <div class="card">
+        <div class="card-body">Basic card</div>
+  </div>
 </div>
 <div id="map">
-    <agm-map [latitude]="51.678418" [longitude]="7.809007">
-        <agm-marker [latitude]="51.678418" [longitude]="7.809007"></agm-marker>
+    
+    <agm-map [latitude]="centerLat" [longitude]="centerLng">
+        <agm-marker *ngFor="let localStore of localStores" 
+            [latitude]="localStore.geoInfo.lat" 
+            [longitude]="localStore.geoInfo.lng">
+        </agm-marker>
     </agm-map>
+
 <div>
