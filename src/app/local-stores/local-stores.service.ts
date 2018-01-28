@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Rx';
 import { map } from 'rxjs/operators';
-import { LocalStore, GeoInfo } from './local-store.model';
+import { LocalStore, GeoInfo, OpenningHour } from './local-store.model';
 import { GroupsResponse, ResultGroup } from '../shared/shared.models';
 
 //the names of the local store fields as exposed by the backend
@@ -22,7 +22,6 @@ export class LocalStoresService {
   private readonly resultFields = [
     LocalStoreFields.Id,
     LocalStoreFields.Name,
-    LocalStoreFields.Description,
     LocalStoreFields.GeoInfo
   ]
 
@@ -31,8 +30,11 @@ export class LocalStoresService {
   }
 
   // desrialization methods
+  private deserializeOppeningHour(data: Object): OpenningHour{
+    let openningHour: OpenningHour = new OpenningHour();
+  }
+  
   private deserializeGeoInfo(data: Object): GeoInfo{
-    console.log(data);
     let geoInfo = new GeoInfo();
     geoInfo.distance = Number(data['Distance']);
     geoInfo.lat = Number(data['Lat']);
@@ -41,12 +43,9 @@ export class LocalStoresService {
   }
   
   private deserializeLocalStore(data: Object): LocalStore{
-    console.log("deserializeLocalStore: ");
-    console.log(data);
     let localStore: LocalStore = new LocalStore();
     localStore.id = data[LocalStoreFields.Id];
     localStore.name = data[LocalStoreFields.Name];
-    localStore.description = data[LocalStoreFields.Description];
     localStore.geoInfo = this.deserializeGeoInfo(data[LocalStoreFields.GeoInfo][0]);
     return localStore;
   }

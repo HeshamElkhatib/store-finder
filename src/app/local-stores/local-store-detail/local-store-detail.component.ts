@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { LocalStore } from '../local-stores/local-store.model';
+import { LocalStore } from '../local-store.model';
 
 @Component({
   selector: 'local-store-detail',

@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
-import { LocalStoresService } from './local-stores.service';
-import { LocalStore } from './local-store.model';
+import { LocalStoresService } from '../local-stores.service';
+import { LocalStore } from '../local-store.model';
 
 @Component({
   selector: 'local-store-finder',
