@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LocalStoreFinderComponent } from './local-store-finder.component';
 
-describe('LocalStoresComponent', () => {
+describe('LocalStoreFinderComponent', () => {
   let component: LocalStoreFinderComponent;
   let fixture: ComponentFixture<LocalStoreFinderComponent>;
 

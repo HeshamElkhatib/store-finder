@@ -3,5 +3,11 @@ agm-map {
 }
 #map{
     height: 600px;
-    
+    z-index: 1;
+}
+
+#search-layer{
+    z-index: 2;
+    position: absolute;
+    margin: 20px;
 }
