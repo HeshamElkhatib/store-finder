@@ -8,7 +8,7 @@ export class ContactInfo{
 
 }
 
-export class OpenningHour{
+export class OpeningHour{
     date: string;
     weekday: string;
     openTime: string;
@@ -23,9 +23,9 @@ export class LocalStore{
     customId: string;
     name: string;
     description: string;
-    starRating: string;
+    starRating: number;
     geoInfo: GeoInfo;
     contactInfo: ContactInfo;
-    openningHours: Array<OpenningHour>;
+    openingHours: Array<OpeningHour>;
 }
 

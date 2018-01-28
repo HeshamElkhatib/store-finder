@@ -4,15 +4,17 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Rx';
 import { map } from 'rxjs/operators';
-import { LocalStore, GeoInfo, OpenningHour } from './local-store.model';
+import { LocalStore, GeoInfo, OpeningHour } from './local-store.model';
 import { GroupsResponse, ResultGroup } from '../shared/shared.models';
 
 //the names of the local store fields as exposed by the backend
 export class LocalStoreFields{
   public static readonly Id = 'Id';
   public static readonly Name = 'Name';
-  public static readonly Description = 'Description';
   public static readonly GeoInfo = 'GeoInfo';
+  public static readonly OpeningHours = 'OpeningHours';
+  public static readonly Rating = 'CustomPartnerweb';
+  public static readonly CustomFields = 'CustomFields';
 }
 
 @Injectable()
@@ -22,7 +24,9 @@ export class LocalStoresService {
   private readonly resultFields = [
     LocalStoreFields.Id,
     LocalStoreFields.Name,
-    LocalStoreFields.GeoInfo
+    LocalStoreFields.GeoInfo,
+    LocalStoreFields.Rating,
+    LocalStoreFields.OpeningHours
   ]
 
   constructor(private http: HttpClient) { 
@@ -30,8 +34,16 @@ export class LocalStoresService {
   }
 
   // desrialization methods
-  private deserializeOppeningHour(data: Object): OpenningHour{
-    let openningHour: OpenningHour = new OpenningHour();
+  private deserializeOpeningHour(data: Object): OpeningHour{
+    let openingHour: OpeningHour = new OpeningHour();
+    openingHour.date = data['Date'];
+    openingHour.weekday = data['Weekday'];
+    openingHour.openTime = data['Opentime'];
+    openingHour.closeTime = data['Closetime'];
+    openingHour.extraTime = data['Extratime'];
+    openingHour.openTimeType = data['OpenTimeType'];
+    openingHour.closeTimeType = data['CloseTimeType'];
+    return openingHour
   }
   
   private deserializeGeoInfo(data: Object): GeoInfo{
@@ -42,17 +54,33 @@ export class LocalStoresService {
     return geoInfo;
   }
   
+  private parseRating(rawRating: string): number{
+    let matchRes = rawRating.match(/^[0-9]+/);
+    if(matchRes == null)
+      return null;
+    return Number(matchRes[0]);
+  }
   private deserializeLocalStore(data: Object): LocalStore{
+    console.log("raw: "); console.log(data);
     let localStore: LocalStore = new LocalStore();
     localStore.id = data[LocalStoreFields.Id];
     localStore.name = data[LocalStoreFields.Name];
     localStore.geoInfo = this.deserializeGeoInfo(data[LocalStoreFields.GeoInfo][0]);
+    //parse opening hours
+    let openingHoursData: Array<Object> = data[LocalStoreFields.OpeningHours];
+    localStore.openingHours = openingHoursData.map(openingHour => this.deserializeOpeningHour(openingHour));
+    //parse rating
+    let customFields: Array<Object> = data[LocalStoreFields.CustomFields];
+    let ratingData = customFields.filter((field: Object) => field["Key"] == LocalStoreFields.Rating);
+    if(ratingData.length > 0){
+      let rawRating: string = ratingData[0]["Values"][0]["Value"];
+      localStore.starRating = this.parseRating(rawRating);
+    }
+    console.log(localStore);
     return localStore;
   }
   
   private deserializeResultGroup(data: Object): ResultGroup<LocalStore>{
-    console.log("deserializeResultGroup: ");
-    console.log(data);
     let resultGroup: ResultGroup<LocalStore> = new ResultGroup<LocalStore>();
     resultGroup.resultAmountTotal = data['ResultGroupHeader']['ResultAmountTotal'];
     resultGroup.resultAmount = data['ResultGroupHeader']['ResultAmount'];
@@ -65,8 +93,6 @@ export class LocalStoresService {
   }
 
   private deserializeGroupsResponse(data: Object) : GroupsResponse<LocalStore>{
-    console.log("deserializeGroupsResponse: ");
-    console.log(data);
     let response = new GroupsResponse<LocalStore>();
     response.groupAmount = data['GroupAmount'];
     let groups: Array<Object> = data['ResultGroups'];
