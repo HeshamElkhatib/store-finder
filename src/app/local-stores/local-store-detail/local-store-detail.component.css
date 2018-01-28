@@ -1,0 +1,25 @@
+.store-detail{
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    font-family: inherit;
+    background: white;
+}
+
+.store-detail:hover{
+    background: #F6F6F6;
+}
+.store-detail > .text-primary{
+    font-size: 16px
+}
+
+.store-detail > .info{
+    padding: 10px;
+}
+
+.store-detail > .info li{
+    margin-left: 5px;  
+}
+
+.store-detail > .rating{
+    color: #f2b01e;
+}

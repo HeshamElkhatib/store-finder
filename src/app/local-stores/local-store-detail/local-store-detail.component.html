@@ -1,6 +1,17 @@
-<div class="card">
-        <div class="card-header">
+<div class="small store-detail">
+        <div class="text-primary">
             {{localStore.name}}
-        </div>  
-        
-</div>  
+        </div>
+        <div class="info" *ngIf="localStore.openingHours &&  localStore.openingHours.length > 0" >
+            <div >
+               <strong><i class="fa fa-calendar" aria-hidden="true"></i> Openining Hours</strong> 
+            </div>
+            <li *ngFor="let entry of localStore.openingHours">
+                {{entry.weekday}} {{entry.openTime}} : {{entry.closeTime}}
+            </li>
+        </div>
+        <div *ngIf="localStore.starRating" class="rating">
+            <i *ngFor="let time of times(localStore.starRating)" class="fa fa-star" aria-hidden="true"></i>
+        </div>
+    
+</div>

@@ -15,4 +15,7 @@ export class LocalStoreDetailComponent implements OnInit {
   ngOnInit() {
   }
 
+  times(n: number) : Array<number>{
+    return Array(n);
+  }
 }
