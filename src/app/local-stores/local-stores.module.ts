@@ -7,6 +7,8 @@ import { LocalStoreFinderComponent } from './local-store-finder.component';
 import { LocalStoresService } from './local-stores.service';
 import { AgmCoreModule } from "@agm/core"
 import { environment } from '../../environments/environment';
+import { LocalStoresListComponent } from '../local-stores-list/local-stores-list.component';
+import { LocalStoreDetailComponent } from '../local-store-detail/local-store-detail.component';
 @NgModule({
   imports: [
     FormsModule,
@@ -16,7 +18,7 @@ import { environment } from '../../environments/environment';
       apiKey: environment.googlMapsApiKey
     })
   ],
-  declarations: [LocalStoreFinderComponent],
+  declarations: [LocalStoreFinderComponent, LocalStoresListComponent, LocalStoreDetailComponent],
   exports: [LocalStoreFinderComponent],
   providers: [LocalStoresService]
 })

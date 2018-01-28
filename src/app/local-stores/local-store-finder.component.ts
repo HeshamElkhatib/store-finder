@@ -20,10 +20,10 @@ export class LocalStoreFinderComponent implements OnInit {
   language: string;
   //binded to the search control
   searchText: string;
-
   localStores: Array<LocalStore> = [];
   centerLat: number = 51.678418;
   centerLng: number = 7.809007;
+  isStoresListCollapsed = true;
 
   constructor(private localStoresService: LocalStoresService) { }
 
@@ -42,8 +42,8 @@ export class LocalStoreFinderComponent implements OnInit {
       this.centerLng = localStores[0].geoInfo.lng;
       this.centerLat = localStores[0].geoInfo.lat;
       console.log(this.localStores);
-    });
-    
+    }); 
   }
+  
 
 }

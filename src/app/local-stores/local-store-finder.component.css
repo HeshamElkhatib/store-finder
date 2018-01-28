@@ -6,8 +6,15 @@ agm-map {
     z-index: 1;
 }
 
-#search-layer{
-    z-index: 2;
-    position: absolute;
-    margin: 20px;
+#top-layer{
+    z-index: 2 !important;
+    position: absolute;   
+    margin-top: 10px;
+    margin-left : 10px;
+}
+
+#stores-list{
+    overflow-y: scroll;
+    height: 500px;
+    max-height: 100%;
 }
