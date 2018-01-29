@@ -61,7 +61,6 @@ export class LocalStoresService {
     return Number(matchRes[0]);
   }
   private deserializeLocalStore(data: Object): LocalStore{
-    console.log("raw: "); console.log(data);
     let localStore: LocalStore = new LocalStore();
     localStore.id = data[LocalStoreFields.Id];
     localStore.name = data[LocalStoreFields.Name];
@@ -76,7 +75,6 @@ export class LocalStoresService {
       let rawRating: string = ratingData[0]["Values"][0]["Value"];
       localStore.starRating = this.parseRating(rawRating);
     }
-    console.log(localStore);
     return localStore;
   }
   

@@ -21,15 +21,23 @@ export class LocalStoreFinderComponent implements OnInit {
   //binded to the search control
   searchText: string;
   localStores: Array<LocalStore> = [];
-  //google maps value
-  centerLat: number = 51.678418;
-  centerLng: number = 7.809007;
+  //since pagination isn't supported, the component would fetch a constant maximum number of stores
+  MAX_PRODUCTS: number = 2000;
+  //use hardcoded values of germany coordintas, since the country would be always de
+  readonly DE_LAT:number = 51.1657;
+  readonly DE_LNG:number = 10.4515;
+  //google maps values
+  centerLat: number ;
+  centerLng: number;
   agmZoom: number = 10;
   isStoresListCollapsed = true;
   // the selected store from the list view
   selectedStoreIndx = -1;
 
-  constructor(private localStoresService: LocalStoresService) { }
+  constructor(private localStoresService: LocalStoresService) { 
+    this.centerLat = this.DE_LAT;
+    this.centerLng = this.DE_LNG;
+  }
 
   ngOnInit() {
   }
@@ -45,7 +53,13 @@ export class LocalStoreFinderComponent implements OnInit {
   }
 
   onSearch(): void{
-    this.localStoresService.getByEanAndCity(this.country, this.language, this.productEan, this.searchText, 0, 1000).
+    this.localStoresService.getByEanAndCity(this.country, 
+      this.language, 
+      this.productEan, 
+      this.searchText, 
+      0,
+      // since there is no support for pagination just get 
+      this.MAX_PRODUCTS).
     pipe(
       map(result => result.resultGroups),
       map(groups => groups[0]),
@@ -53,6 +67,7 @@ export class LocalStoreFinderComponent implements OnInit {
     ).
     subscribe((localStores: Array<LocalStore>) => {
       this.localStores = localStores.sort(this.storesComparer);
+      //assume there is always one group
       this.centerLng = localStores[0].geoInfo.lng;
       this.centerLat = localStores[0].geoInfo.lat;
       
