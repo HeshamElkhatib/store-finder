@@ -1,20 +1,3 @@
 <div class="fill main">
-  <ul class="nav nav-pills nav-justified" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link" [class.active]="isLocalActive" data-toggle="pill" href="#local-dealer" (click)="isLocalActive = true">Local Dealer</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" [class.active]="!isLocalActive" data-toggle="pill" href="#online-retailer" (click)="isLocalActive = false">Online Retailer</a>
-    </li>
-  </ul>
-
-  <div class="tab-content fill">
-    <div class="tab-pane fill" [class.active]="isLocalActive" id="local-dealer">
-      <local-store-finder [productEan]="productEan" [country]="country" [language]="language"></local-store-finder>
-    </div>
-    <div class="tab-pane container fill" [class.active]="!isLocalActive" id="online-retailer">
-      Online Retailer
-    </div>
-  </div>
-
+  <local-store-finder [productEan]="productEan" [country]="country" [language]="language"></local-store-finder>
 </div>
