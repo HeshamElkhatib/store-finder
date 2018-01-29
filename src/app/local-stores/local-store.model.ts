@@ -4,10 +4,6 @@ export class GeoInfo{
     distance: number;
 }
 
-export class ContactInfo{
-
-}
-
 export class OpeningHour{
     date: string;
     weekday: string;
@@ -25,7 +21,6 @@ export class LocalStore{
     description: string;
     starRating: number;
     geoInfo: GeoInfo;
-    contactInfo: ContactInfo;
     openingHours: Array<OpeningHour>;
 }
 
