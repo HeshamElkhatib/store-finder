@@ -1,3 +1,11 @@
 nav nav-item{
-    border-bottom-color: blue;
+    border-bottom-color: blue;  
+}
+
+.main > ul{
+    height: 40px;
+}
+
+.tab-content{
+    height: 95%;
 }

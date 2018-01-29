@@ -21,8 +21,10 @@ export class LocalStoreFinderComponent implements OnInit {
   //binded to the search control
   searchText: string;
   localStores: Array<LocalStore> = [];
+  //google maps value
   centerLat: number = 51.678418;
   centerLng: number = 7.809007;
+  agmZoom: number = 10;
   isStoresListCollapsed = true;
   // the selected store from the list view
   selectedStoreIndx = -1;

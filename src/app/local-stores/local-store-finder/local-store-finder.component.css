@@ -2,19 +2,20 @@ agm-map {
     height: 100%;
 }
 #map{
-    height: 600px;
     z-index: 1;
 }
 
 #top-layer{
-    z-index: 2 !important;
+    z-index: 2 ;
     position: absolute;   
     margin-top: 10px;
     margin-left : 10px;
 }
 
-#stores-list{
-    overflow-y: scroll;
-    height: 500px;
-    max-height: 100%;
+#top-layer > form{
+    height: 10%;
+}
+
+#top-layer > .stores-list{
+    height: 80%;
 }

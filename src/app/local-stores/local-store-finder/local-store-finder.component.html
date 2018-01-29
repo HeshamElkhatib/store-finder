@@ -1,6 +1,5 @@
-<div>
-    <div id="top-layer">
-
+<div class="fill">
+    <div id="top-layer" class="fill">
         <form class="form-inline" #searchForm="ngForm">
             <span class="form-group">
                 <input type="text" class="form-control" name="search" [(ngModel)]="searchText">
@@ -10,11 +9,9 @@
             </button>
         </form>
 
-        <div *ngIf="localStores.length > 0">
-            <div id="stores-list">
+        <div *ngIf="localStores.length > 0" class="stores-list">
                 <local-stores-list *ngIf="!isStoresListCollapsed" [localStores]="localStores" (storeClick)="onStoreClick($event)">
                 </local-stores-list>
-            </div>
             <span class="card bg-primary text-white text-center" (click)="toggleStoresList()">
                 <span *ngIf="isStoresListCollapsed">
                     <i class="fa fa-arrow-down" aria-hidden="true"></i> Display List</span>
@@ -25,8 +22,8 @@
         </div>
     </div>
 
-    <div id="map">
-        <agm-map [latitude]="centerLat" [longitude]="centerLng">
+    <div id="map" class="fill">
+        <agm-map [zoom]="agmZoom" [latitude]="centerLat" [longitude]="centerLng">
             <agm-marker *ngFor="let localStore of localStores; index as i;" [opacity]="(selectedStoreIndx == -1 || i == selectedStoreIndx) ? 1 : 0.4"
                 [latitude]="localStore.geoInfo.lat" [longitude]="localStore.geoInfo.lng">
             </agm-marker>
