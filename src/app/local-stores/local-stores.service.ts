@@ -21,6 +21,7 @@ export class LocalStoreFields{
 export class LocalStoresService {
   
   private readonly baseUrl = 'https://api.commerce-connector.com/REST/2.0/LocalStore';
+  //controls the returned values from the API
   private readonly resultFields = [
     LocalStoreFields.Id,
     LocalStoreFields.Name,
