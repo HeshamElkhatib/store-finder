@@ -1,6 +1,7 @@
 agm-map {
     height: 100%;
 }
+
 #map{
     z-index: 1;
 }
@@ -8,8 +9,8 @@ agm-map {
 #top-layer{
     z-index: 2 ;
     position: absolute;   
-    margin-top: 10px;
-    margin-left : 10px;
+    padding-top: 10px;
+    padding-left : 10px;
 }
 
 #top-layer > form{
@@ -17,5 +18,6 @@ agm-map {
 }
 
 #top-layer > .stores-list{
-    height: 75%;
+    height: 85%;
+  
 }
