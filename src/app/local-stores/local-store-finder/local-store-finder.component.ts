@@ -1,9 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs/Rx';
 
 import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import { LocalStoresService } from '../local-stores.service';
 import { LocalStore } from '../local-store.model';
+import { GroupsResponse, ResultGroup } from '../../shared/shared.models';
 
 @Component({
   selector: 'local-store-finder',
@@ -51,16 +53,35 @@ export class LocalStoreFinderComponent implements OnInit {
       return -1;
     return (a.starRating > b.starRating) ? -1 : 1;
   }
-
-  onSearch(): void{
-    this.localStoresService.getByEanAndCity(this.country, 
+  
+  citySearch(): any{
+    return this.localStoresService.getByEanAndCity(this.country, 
       this.language, 
       this.productEan, 
       this.searchText, 
       0,
       // since there is no support for pagination just get 
-      this.MAX_PRODUCTS).
-    pipe(
+      this.MAX_PRODUCTS);
+  }
+
+  postCodeSearch(): Observable<GroupsResponse<LocalStore>>{
+    return this.localStoresService.getByEanAndPostCode(this.country, 
+      this.language, 
+      this.productEan, 
+      this.searchText, 
+      0,
+      // since there is no support for pagination just get 
+      this.MAX_PRODUCTS);
+  }
+
+  isPostCodeSearch() : boolean{
+    console.log(this.searchText.match(/^[0-9]+/) != null);
+    return this.searchText.match(/^[0-9]+/) != null;
+  }
+
+  onSearch(): void{
+    let searchObservable: Observable<GroupsResponse<LocalStore>> = this.isPostCodeSearch() ? this.postCodeSearch() : this.citySearch() ;
+    searchObservable.pipe(
       map(result => result.resultGroups),
       map(groups => groups[0]),
       map(group => group.records),
@@ -68,8 +89,10 @@ export class LocalStoreFinderComponent implements OnInit {
     subscribe((localStores: Array<LocalStore>) => {
       this.localStores = localStores.sort(this.storesComparer);
       //assume there is always one group
-      this.centerLng = localStores[0].geoInfo.lng;
-      this.centerLat = localStores[0].geoInfo.lat;
+      if(this.localStores.length > 0){
+        this.centerLng = localStores[0].geoInfo.lng;
+        this.centerLat = localStores[0].geoInfo.lat;
+      }
       
     }); 
   }

@@ -1,12 +1,13 @@
-<div class="fill">
+
     <div id="top-layer" class="fill">
         <form class="form-inline" #searchForm="ngForm">
             <span class="form-group">
-                <input type="text" class="form-control" name="search" [(ngModel)]="searchText">
+                <input type="text" class="form-control" name="search" [(ngModel)]="searchText" placeholder="Search by city or post code">
             </span>
             <button type="submit" class="btn btn-primary" (click)="onSearch()">
                 <i class="fa fa-search" aria-hidden="true"></i>
             </button>
+            
         </form>
 
         <div *ngIf="localStores.length > 0" class="stores-list">
@@ -29,4 +30,3 @@
             </agm-marker>
         </agm-map>
     </div>
-</div>
